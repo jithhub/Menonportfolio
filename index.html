@@ -2,58 +2,691 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Srijith G Menon | Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Reset & Base ───────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black:   #0a0a0a;
+            --white:   #f5f3ee;
+            --accent:  #e63946;
+            --gray:    #1e1e1e;
+            --muted:   #888;
+            --border:  #2a2a2a;
+            --f1red:   #e10600;
+            --f1dark:  #15151e;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ── Header ─────────────────────────────────────────── */
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: var(--black);
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        nav { display: flex; gap: 2rem; }
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--white); }
+
+        /* ── Hero ───────────────────────────────────────────── */
+        .hero {
+            padding: 6rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h2 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            max-width: 700px;
+        }
+
+        .hero h2 span { color: var(--accent); }
+
+        .hero p {
+            margin-top: 2rem;
+            max-width: 560px;
+            color: #bbb;
+            font-size: 1.05rem;
+        }
+
+        /* ── Section base ───────────────────────────────────── */
+        section {
+            padding: 5rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+        }
+
+        section p {
+            color: #bbb;
+            max-width: 700px;
+            margin-bottom: 1.2rem;
+        }
+
+        /* ── Project Card ───────────────────────────────────── */
+        .project-card {
+            background: var(--gray);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            max-width: 900px;
+        }
+
+        .project-card-header {
+            background: var(--f1dark);
+            padding: 2rem 2.5rem;
+            border-bottom: 3px solid var(--f1red);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .f1-badge {
+            background: var(--f1red);
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.7rem;
+            border-radius: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .project-card-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .project-card-header p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* ── Project Write-up inside card ───────────────────── */
+        .project-body {
+            padding: 2.5rem;
+        }
+
+        .project-section {
+            margin-bottom: 3rem;
+        }
+
+        .project-section h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--f1red);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .project-section h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .project-section p {
+            color: #bbb;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* ── Cleaning steps list ────────────────────────────── */
+        .steps-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .steps-list li {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            color: #bbb;
+            font-size: 0.95rem;
+        }
+
+        .step-num {
+            background: var(--f1red);
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            min-width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.15rem;
+            flex-shrink: 0;
+        }
+
+        /* ── Charts Grid ────────────────────────────────────── */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .chart-item {
+            background: #111;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .chart-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .chart-caption {
+            padding: 0.8rem 1rem;
+            font-size: 0.82rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .chart-caption strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .chart-full {
+            grid-column: 1 / -1;
+        }
+
+        /* ── Stats row ──────────────────────────────────────── */
+        .stats-row {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: #111;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--f1red);
+            padding: 1rem 1.5rem;
+            border-radius: 2px;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .stat-box .stat-val {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .stat-box .stat-label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
+        /* ── Code link button ───────────────────────────────── */
+        .code-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: transparent;
+            border: 1px solid var(--f1red);
+            color: var(--f1red);
+            padding: 0.7rem 1.4rem;
+            border-radius: 2px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .code-link:hover {
+            background: var(--f1red);
+            color: white;
+        }
+
+        /* ── References box ─────────────────────────────────── */
+        .ref-box {
+            background: #111;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .ref-box a {
+            color: var(--f1red);
+            text-decoration: none;
+        }
+        .ref-box a:hover { text-decoration: underline; }
+
+        .ref-box .ref-label {
+            color: var(--white);
+            font-weight: 700;
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .ref-box .ref-label:first-child { margin-top: 0; }
+
+        /* ── Divider ────────────────────────────────────────── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        /* ── Blog articles ──────────────────────────────────── */
+        article {
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+        }
+
+        article h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        /* ── Footer ─────────────────────────────────────────── */
+        footer {
+            padding: 2rem 4rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ── Responsive ─────────────────────────────────────── */
+        @media (max-width: 768px) {
+            header, section, .hero, footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .chart-full { grid-column: 1; }
+            .stats-row { gap: 1rem; }
+        }
+    </style>
 </head>
 <body>
-    <header>
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header>
+    <div>
         <h1>Srijith G Menon</h1>
         <p>Student ID: 801458396</p>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#blog">Blog</a>
-        </nav>
-    </header>
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>
+    </nav>
+</header>
 
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<div class="hero">
+    <h2>Data Science<br><span>Portfolio</span></h2>
+    <p>Student interested in data science, technology, and how data-driven tools can be applied to real-world social and interdisciplinary problems.</p>
+</div>
+
+<main>
+
+    <!-- ── ABOUT ──────────────────────────────────────────── -->
+    <section id="about">
+        <div class="section-label">01 — About</div>
+        <h2>About Me</h2>
+        <p>
+            My name is Srijith G Menon, and I am a student interested in data science, technology, and how data-driven tools can be applied to real-world social and interdisciplinary problems. I am particularly interested in understanding how data can be used responsibly to analyze human behavior, social systems, and complex interactions across different fields.
+        </p>
+    </section>
+
+    <!-- ── PROJECTS ───────────────────────────────────────── -->
+    <section id="projects">
+        <div class="section-label">02 — Projects</div>
+        <h2>Portfolio / Projects</h2>
+
+        <!-- ── F1 PROJECT CARD ─────────────────────────────── -->
+        <div class="project-card">
+
+            <div class="project-card-header">
+                <div>
+                    <span class="f1-badge">Project 1 — DS2</span>
+                    <h3>F1 2021 Season Analysis</h3>
+                    <p>Exploratory data analysis using results.csv and races.csv</p>
+                </div>
+            </div>
+
+            <div class="project-body">
+
+                <!-- 1. PROBLEM DEFINITION -->
+                <div class="project-section">
+                    <h4>01 — Problem Definition</h4>
+                    <p>
+                        The 2021 Formula 1 season was one of the most exciting in years. Max Verstappen and Lewis Hamilton were fighting for the championship all the way to the very last race of the season. I got curious — what does the actual data say about how that happened? Is it just about having the fastest car, or do other things like starting position and reliability play a role too?
+                    </p>
+                    <p>To explore this I asked three simple but meaningful questions:</p>
+                    <ul class="steps-list">
+                        <li><span class="step-num">?</span>Who scored the most points across the entire 2021 season?</li>
+                        <li><span class="step-num">?</span>Does where you start a race affect where you finish?</li>
+                        <li><span class="step-num">?</span>Which drivers made it to the podium the most often?</li>
+                    </ul>
+                    <p style="margin-top:1rem;">
+                        These questions are interesting because F1 is not just about raw speed. Strategy, consistency, and reliability all shape the final standings. Anyone who follows motorsport — fans, journalists, or the teams themselves — would find value in understanding these patterns.
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 2. DATA DESCRIPTION -->
+                <div class="project-section">
+                    <h4>02 — Data Description</h4>
+
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-val">440</div>
+                            <div class="stat-label">Total rows (2021)</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-val">22</div>
+                            <div class="stat-label">Races in season</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-val">20</div>
+                            <div class="stat-label">Drivers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-val">2</div>
+                            <div class="stat-label">CSV files used</div>
+                        </div>
+                    </div>
+
+                    <p>
+                        The dataset comes from Kaggle and is built from the Ergast Motor Racing API — a publicly available database of Formula 1 results going back to 1950. I only used two files.
+                    </p>
+                    <p>
+                        <strong style="color:var(--white);">results.csv</strong> is the main file. Each row represents one driver's result in one race — their starting position, finishing position, points earned, and laps completed.
+                        <strong style="color:var(--white);"> races.csv</strong> was used only to get race names and filter the data down to just the 2021 season.
+                    </p>
+                    <p>
+                        One key limitation is that driver names are not stored in the file — only ID numbers. I had to map those manually. The dataset also uses a special code called \N for missing values instead of leaving cells blank, which required extra cleaning.
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 3. DATA CLEANING -->
+                <div class="project-section">
+                    <h4>03 — Data Cleaning & Preparation</h4>
+                    <p>Before any analysis I cleaned the data in five steps. Here is each step and the reason behind it.</p>
+                    <ul class="steps-list">
+                        <li>
+                            <span class="step-num">1</span>
+                            <div><strong style="color:var(--white);">Filtered to 2021 only</strong> — The full dataset covers 70+ years of F1. Keeping only 2021 reduced the dataset from tens of thousands of rows down to 440.</div>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <div><strong style="color:var(--white);">Replaced \N with NaN</strong> — The Ergast dataset uses \N to indicate missing data. Python does not recognize this automatically, so I replaced it with NaN — the standard missing value format.</div>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <div><strong style="color:var(--white);">Converted columns to numbers</strong> — The points, grid, and position columns were being read as text. I converted them to numeric format so I could do calculations and comparisons.</div>
+                        </li>
+                        <li>
+                            <span class="step-num">4</span>
+                            <div><strong style="color:var(--white);">Added driver names</strong> — The results file only stores a numeric driver ID. I built a dictionary mapping each ID to the real driver name so charts would be readable.</div>
+                        </li>
+                        <li>
+                            <span class="step-num">5</span>
+                            <div><strong style="color:var(--white);">Kept DNF rows intentionally</strong> — 52 rows have no finishing position because the driver retired. I kept these because retirements affect points and tell an important part of the story.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 4. VISUALIZATIONS -->
+                <div class="project-section">
+                    <h4>04 — Data Understanding & Visualization</h4>
+                    <p>I created five charts, each one answering a specific part of my original questions.</p>
+
+                    <div class="charts-grid">
+
+                        <div class="chart-item chart-full">
+                            <img src="chart1_total_points.png" alt="Total Championship Points per Driver 2021">
+                            <div class="chart-caption">
+                                <strong>Chart 1 — Total Points per Driver</strong>
+                                Horizontal bar chart chosen so all driver names fit clearly. Verstappen and Hamilton are in a completely different tier from every other driver. The gap between 2nd and 3rd place is enormous compared to the gap between 1st and 2nd.
+                            </div>
+                        </div>
+
+                        <div class="chart-item chart-full">
+                            <img src="chart2_grid_vs_finish.png" alt="Grid Position vs Final Race Position">
+                            <div class="chart-caption">
+                                <strong>Chart 2 — Grid vs Finish Position (r = 0.75)</strong>
+                                Scatter plot with a diagonal reference line. Each dot is one driver in one race. The correlation of r = 0.75 shows a strong link between qualifying position and race finish — but the wide scatter tells us races are not predetermined.
+                            </div>
+                        </div>
+
+                        <div class="chart-item">
+                            <img src="chart3_podiums.png" alt="Podium Finishes per Driver">
+                            <div class="chart-caption">
+                                <strong>Chart 3 — Podium Finishes</strong>
+                                Mid-field drivers like Ocon and Gasly appearing here represents genuinely exceptional performances above their car's baseline.
+                            </div>
+                        </div>
+
+                        <div class="chart-item">
+                            <img src="chart5_dnfs.png" alt="DNFs per Driver">
+                            <div class="chart-caption">
+                                <strong>Chart 5 — Retirements (DNFs)</strong>
+                                Every retirement is a zero on the scoreboard. In a season decided by 8 points, each one mattered.
+                            </div>
+                        </div>
+
+                        <div class="chart-item chart-full">
+                            <img src="chart4_title_battle.png" alt="Hamilton vs Verstappen Points Race">
+                            <div class="chart-caption">
+                                <strong>Chart 4 — Hamilton vs Verstappen Running Total</strong>
+                                Line chart tracking cumulative points after each of the 22 rounds. Hamilton led for most of the season before Verstappen closed the gap dramatically in the final rounds. The two lines nearly touch at Abu Dhabi.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 5. STORYTELLING -->
+                <div class="project-section">
+                    <h4>05 — Storytelling & Interpretation</h4>
+                    <p>
+                        Putting all five charts together, a clear story emerges. The 2021 season was fundamentally a two-driver battle — Chart 1 establishes this immediately, with Verstappen and Hamilton on a level nobody else came close to.
+                    </p>
+                    <p>
+                        Chart 2 adds an important layer: qualifying was critical in 2021. A correlation of r = 0.75 between grid position and race finish tells us the championship was often shaped before the lights even went out. Teams that excelled in one-lap qualifying pace had a structural advantage going into every race.
+                    </p>
+                    <p>
+                        Chart 4 shows the emotional version of this story. Hamilton led for most of the season, but Verstappen's momentum in the final rounds was unmistakable. The two lines converging toward Abu Dhabi makes the tension visible in a way that numbers alone cannot capture.
+                    </p>
+                    <p>
+                        Chart 5 adds the final piece — survival. Every retirement changed the math. In a season decided by 8 points, a single extra DNF from either driver could have changed the champion entirely.
+                    </p>
+                    <p>
+                        <strong style="color:var(--white);">What would be misleading to conclude:</strong> We are measuring results, not driver talent in isolation. Verstappen and Hamilton dominated partly due to personal ability and partly due to having the two fastest cars. The data cannot separate those two things, which is an important limit on what we can claim.
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 6. LIMITATIONS -->
+                <div class="project-section">
+                    <h4>06 — Limitations, Ethics & Reflection</h4>
+
+                    <h5>What the data does not capture</h5>
+                    <p>The results file records outcomes but not causes. There is no information about weather, tire strategy, safety car timing, or car upgrades. Two identical-looking results in the data could have come from completely different situations on track.</p>
+
+                    <h5>A potential bias</h5>
+                    <p>My correlation analysis only included races where both grid and finish position were recorded — meaning DNF drivers were excluded. Chaotic races tend to produce both more position changes and more retirements. Excluding DNFs may make grid position look slightly more predictive than it really is.</p>
+
+                    <h5>The car versus driver problem</h5>
+                    <p>Points and positions reflect the combination of driver and car together. Drivers in better cars qualify higher and finish higher regardless of personal skill. Nothing in this dataset allows me to control for car performance.</p>
+
+                    <h5>What surprised me</h5>
+                    <p>I expected qualifying to be even more predictive. The r = 0.75 is strong, but the wide scatter shows that plenty of position changes happen across a full season. Races are genuinely unpredictable at an individual level, which is what makes F1 worth watching.</p>
+
+                    <h5>What I would explore next</h5>
+                    <p>If I had more time I would bring in lap_times.csv to analyze consistency of pace within individual races. That would get closer to separating driver ability from car performance — a driver managing tyre degradation well shows up in lap-by-lap data even when the final result does not reflect it.</p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 7. CODE -->
+                <div class="project-section">
+                    <h4>07 — Code</h4>
+                    <p>The full Jupyter notebook with all code is available below. Every cell has comments explaining what it does and why. Only two CSV files were used throughout.</p>
+                    <a href="YOUR_GITHUB_OR_COLAB_LINK_HERE" class="code-link" target="_blank">
+                        ↗ View Full Notebook
+                    </a>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 8. REFERENCES -->
+                <div class="project-section">
+                    <h4>08 — References & AI Use</h4>
+                    <div class="ref-box">
+                        <span class="ref-label">Dataset</span>
+                        Formula 1 World Championship (1950–2024) — Kaggle<br>
+                        <a href="https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020" target="_blank">kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020</a><br>
+                        Original source: Ergast Motor Racing API — <a href="http://ergast.com/mrd/" target="_blank">ergast.com/mrd/</a>
+
+                        <span class="ref-label">Libraries</span>
+                        pandas — <a href="https://pandas.pydata.org/docs/" target="_blank">pandas.pydata.org</a><br>
+                        matplotlib — <a href="https://matplotlib.org/" target="_blank">matplotlib.org</a><br>
+                        numpy — <a href="https://numpy.org/" target="_blank">numpy.org</a>
+
+                        <span class="ref-label">AI Use</span>
+                        Claude (Anthropic, claude.ai — Claude Sonnet 4.6) was used throughout this project. I uploaded my dataset and Claude helped me understand what each file contained, identify the correct driver ID numbers for 2021, write the data cleaning code, build each visualization, and organize this portfolio write-up. All code and writing was reviewed and understood by me before submitting. I am able to explain every decision during the code review.<br><br>
+                        Link to conversation: <a href="YOUR_CLAUDE_CONVERSATION_LINK_HERE" target="_blank">View Claude conversation</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- ── END F1 PROJECT CARD ─────────────────────────── -->
+
+    </section>
+
+    <!-- ── BLOG ───────────────────────────────────────────── -->
+    <section id="blog">
+        <div class="section-label">03 — Blog</div>
+        <h2>Blog</h2>
+
+        <article>
+            <h3>Why Learning Data Science in Social and Interdisciplinary Contexts Matters</h3>
             <p>
-                My name is Srijith G Menon, and I am a student interested in data science, technology, and how data-driven tools can be applied to real-world social and interdisciplinary problems. I am particularly interested in understanding how data can be used responsibly to analyze human behavior, social systems, and complex interactions across different fields.
+                Learning data science in social and interdisciplinary contexts matters because data does not exist in a vacuum. Behind every dataset involving people are real lives, experiences, and consequences. Modeling social topics allows us to better understand patterns in behavior, inequality, communication, and decision-making, but it also forces us to confront the limitations of purely technical approaches. Numbers can describe trends, but interpretation requires social awareness, ethical reasoning, and contextual understanding.
             </p>
-        </section>
-
-        <section id="projects">
-            <h2>Portfolio / Projects</h2>
             <p>
-                This section will be used to showcase my data science and analytical projects throughout the semester. Projects, visualizations, and written analyses will be added as the course progresses.
+                Modeling people and social systems can help answer important questions, such as how resources are distributed, how information spreads, or how policies affect different groups. However, these models can also oversimplify human behavior if we are not careful. People are not just data points, and social systems are influenced by culture, history, and power structures that may not be fully captured in a dataset. This makes interdisciplinary thinking essential when working with social data.
             </p>
-        </section>
+            <p>
+                With the use of data about people comes responsibility. One responsibility is protecting privacy and ensuring that individuals are not harmed or exposed through data misuse. Another is avoiding biased conclusions that reinforce stereotypes or systemic inequalities. Data scientists must think critically about where data comes from, who is represented or excluded, and how results might be used in practice. Transparency, fairness, and accountability are key responsibilities when working with social data.
+            </p>
+            <p>
+                Through this course, I hope to better understand how data science tools can be applied thoughtfully to social questions. I want to learn how to analyze data while considering ethical implications and real-world impact. I am especially interested in gaining skills that allow me to communicate findings clearly and responsibly, making data-driven insights accessible and meaningful beyond purely technical audiences.
+            </p>
+        </article>
 
-        <section id="blog">
-            <h2>Blog</h2>
-            <article>
-                <h3>Why Learning Data Science in Social and Interdisciplinary Contexts Matters</h3>
-                <p>
-                    Learning data science in social and interdisciplinary contexts matters because data does not exist in a vacuum. Behind every dataset involving people are real lives, experiences, and consequences. Modeling social topics allows us to better understand patterns in behavior, inequality, communication, and decision-making, but it also forces us to confront the limitations of purely technical approaches. Numbers can describe trends, but interpretation requires social awareness, ethical reasoning, and contextual understanding.
-                </p>
-                <p>
-                    Modeling people and social systems can help answer important questions, such as how resources are distributed, how information spreads, or how policies affect different groups. However, these models can also oversimplify human behavior if we are not careful. People are not just data points, and social systems are influenced by culture, history, and power structures that may not be fully captured in a dataset. This makes interdisciplinary thinking essential when working with social data.
-                </p>
-                <p>
-                    With the use of data about people comes responsibility. One responsibility is protecting privacy and ensuring that individuals are not harmed or exposed through data misuse. Another is avoiding biased conclusions that reinforce stereotypes or systemic inequalities. Data scientists must think critically about where data comes from, who is represented or excluded, and how results might be used in practice. Transparency, fairness, and accountability are key responsibilities when working with social data.
-                </p>
-                <p>
-                    Through this course, I hope to better understand how data science tools can be applied thoughtfully to social questions. I want to learn how to analyze data while considering ethical implications and real-world impact. I am especially interested in gaining skills that allow me to communicate findings clearly and responsibly, making data-driven insights accessible and meaningful beyond purely technical audiences.
-                </p>
-            </article>
-            <article>
-                <p>Another reason learning data science in social and interdisciplinary contexts matters is because data-driven tools often influence real decisions that affect people’s lives. Models are used to shape policies, recommend actions, and predict outcomes, which means mistakes or oversights can have real consequences. This has made me realize that building an accurate model is not always enough. It’s just as important to think about the assumptions behind the data and what might be missing from it. A model might perform well technically but still lead to unfair results if social context is ignored. Through this course, I hope to become more comfortable questioning results, recognizing limitations, and thinking carefully about how data-driven conclusions impact different groups of people.</p>
-            </article>
-        </section>
-    </main>
+        <article>
+            <p>Another reason learning data science in social and interdisciplinary contexts matters is because data-driven tools often influence real decisions that affect people's lives. Models are used to shape policies, recommend actions, and predict outcomes, which means mistakes or oversights can have real consequences. This has made me realize that building an accurate model is not always enough. It's just as important to think about the assumptions behind the data and what might be missing from it. A model might perform well technically but still lead to unfair results if social context is ignored. Through this course, I hope to become more comfortable questioning results, recognizing limitations, and thinking carefully about how data-driven conclusions impact different groups of people.</p>
+        </article>
+    </section>
 
-    
+</main>
+
+<footer>
+    <span>Srijith G Menon — 801458396</span>
+    <span>Data Science Portfolio</span>
+</footer>
+
 </body>
 </html>
