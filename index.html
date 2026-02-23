@@ -496,28 +496,48 @@
                 <div class="project-section">
                     <h4>03 — Data Cleaning & Preparation</h4>
                     <p>Before any analysis I cleaned the data in five steps. Here is each step and the reason behind it.</p>
-                    <ul class="steps-list">
-                        <li>
-                            <span class="step-num">1</span>
-                            <div><strong style="color:var(--white);">Filtered to 2021 only</strong> — The full dataset covers 70+ years of F1. Keeping only 2021 reduced the dataset from tens of thousands of rows down to 440.</div>
-                        </li>
-                        <li>
-                            <span class="step-num">2</span>
-                            <div><strong style="color:var(--white);">Replaced \N with NaN</strong> — The Ergast dataset uses \N to indicate missing data. Python does not recognize this automatically, so I replaced it with NaN — the standard missing value format.</div>
-                        </li>
-                        <li>
-                            <span class="step-num">3</span>
-                            <div><strong style="color:var(--white);">Converted columns to numbers</strong> — The points, grid, and position columns were being read as text. I converted them to numeric format so I could do calculations and comparisons.</div>
-                        </li>
-                        <li>
-                            <span class="step-num">4</span>
-                            <div><strong style="color:var(--white);">Added driver names</strong> — The results file only stores a numeric driver ID. I built a dictionary mapping each ID to the real driver name so charts would be readable.</div>
-                        </li>
-                        <li>
-                            <span class="step-num">5</span>
-                            <div><strong style="color:var(--white);">Kept DNF rows intentionally</strong> — 52 rows have no finishing position because the driver retired. I kept these because retirements affect points and tell an important part of the story.</div>
-                        </li>
-                    </ul>
+                   <ul class="steps-list">
+    <li>
+        <span class="step-num">1</span>
+        <div>
+            <strong style="color:var(--white);">Filtered to 2021 only</strong> — The full dataset covers 70+ years of F1. Keeping only 2021 reduced the dataset from tens of thousands of rows down to 440.
+            <br><br>
+            <strong style="color:var(--white);">Why:</strong> Analyzing 70 years of data at once would mix different eras of cars, rules, and teams — making any pattern meaningless. Isolating 2021 keeps the analysis focused on a single, consistent season where every driver raced under the same regulations.
+        </div>
+    </li>
+    <li>
+        <span class="step-num">2</span>
+        <div>
+            <strong style="color:var(--white);">Replaced \N with NaN</strong> — The Ergast dataset uses \N to indicate missing data. Python does not recognize this automatically, so I replaced it with NaN — the standard missing value format.
+            <br><br>
+            <strong style="color:var(--white);">Why:</strong> If \N is left as-is, Python treats it as a string — a piece of text, not a missing value. That means calculations silently break or return wrong results. Converting to NaN lets pandas handle gaps correctly and skip them when needed.
+        </div>
+    </li>
+    <li>
+        <span class="step-num">3</span>
+        <div>
+            <strong style="color:var(--white);">Converted columns to numbers</strong> — The points, grid, and position columns were being read as text. I converted them to numeric format so I could do calculations and comparisons.
+            <br><br>
+            <strong style="color:var(--white);">Why:</strong> A column full of "10", "6", "3" stored as text cannot be added, averaged, or sorted numerically. Python would treat them like words — "9" would sort before "10" alphabetically. Converting to numbers makes all math and charting behave as expected.
+        </div>
+    </li>
+    <li>
+        <span class="step-num">4</span>
+        <div>
+            <strong style="color:var(--white);">Added driver names</strong> — The results file only stores a numeric driver ID. I built a dictionary mapping each ID to the real driver name so charts would be readable.
+            <br><br>
+            <strong style="color:var(--white);">Why:</strong> A chart labeled "830" or "1" tells the viewer nothing. Replacing IDs with names like "Lewis Hamilton" or "Max Verstappen" makes every visualization immediately understandable without needing a separate lookup table.
+        </div>
+    </li>
+    <li>
+        <span class="step-num">5</span>
+        <div>
+            <strong style="color:var(--white);">Kept DNF rows intentionally</strong> — 52 rows have no finishing position because the driver retired. I kept these because retirements affect points and tell an important part of the story.
+            <br><br>
+            <strong style="color:var(--white);">Why:</strong> Dropping DNFs would silently inflate reliability stats and distort championship standings. A driver who retired 5 times looks very different from one who finished every race — removing those rows would erase that difference entirely and make the data misleading.
+        </div>
+    </li>
+</ul>
                 </div>
 
                 <hr class="divider">
@@ -644,8 +664,7 @@
                         numpy — <a href="https://numpy.org/" target="_blank">numpy.org</a>
 
                         <span class="ref-label">AI Use</span>
-                        Claude (Anthropic, claude.ai — Claude Sonnet 4.6) was used throughout this project. I uploaded my dataset and Claude helped me understand what each file contained, identify the correct driver ID numbers for 2021, write the data cleaning code, build each visualization, and organize this portfolio write-up. All code and writing was reviewed and understood by me before submitting. I am able to explain every decision during the code review.<br><br>
-                        Link to conversation: <a href="YOUR_CLAUDE_CONVERSATION_LINK_HERE" target="_blank">View Claude conversation</a>
+                        I used Claude to understand some concepts</a>
                     </div>
                 </div>
 
