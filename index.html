@@ -18,6 +18,8 @@
             --border:  #2a2a2a;
             --f1red:   #e10600;
             --f1dark:  #15151e;
+            --mlblue:  #1a6fb5;
+            --mldark:  #0d1b2a;
         }
 
         html { scroll-behavior: smooth; }
@@ -124,10 +126,10 @@
             border-radius: 4px;
             overflow: hidden;
             max-width: 900px;
+            margin-bottom: 3rem;
         }
 
         .project-card-header {
-            background: var(--f1dark);
             padding: 2rem 2.5rem;
             border-bottom: 3px solid var(--f1red);
             display: flex;
@@ -135,8 +137,31 @@
             gap: 1.5rem;
         }
 
+        .project-card-header.f1-header {
+            background: var(--f1dark);
+            border-bottom-color: var(--f1red);
+        }
+
+        .project-card-header.ml-header {
+            background: var(--mldark);
+            border-bottom-color: var(--mlblue);
+        }
+
         .f1-badge {
             background: var(--f1red);
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.7rem;
+            border-radius: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .ml-badge {
+            background: var(--mlblue);
             color: white;
             font-family: 'Space Mono', monospace;
             font-size: 0.7rem;
@@ -175,6 +200,10 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 0.6rem;
+        }
+
+        .project-section h4.ml-accent {
+            color: var(--mlblue);
         }
 
         .project-section h5 {
@@ -221,6 +250,10 @@
             justify-content: center;
             margin-top: 0.15rem;
             flex-shrink: 0;
+        }
+
+        .step-num.ml {
+            background: var(--mlblue);
         }
 
         /* ── Charts Grid ────────────────────────────────────── */
@@ -279,6 +312,10 @@
             min-width: 140px;
         }
 
+        .stat-box.ml {
+            border-left-color: var(--mlblue);
+        }
+
         .stat-box .stat-val {
             font-family: 'Space Mono', monospace;
             font-size: 1.6rem;
@@ -290,6 +327,45 @@
             font-size: 0.78rem;
             color: var(--muted);
             margin-top: 0.2rem;
+        }
+
+        /* ── Model comparison table ─────────────────────────── */
+        .model-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.82rem;
+            margin: 1rem 0;
+        }
+
+        .model-table th {
+            background: #111;
+            color: var(--muted);
+            text-align: left;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .model-table td {
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            color: #bbb;
+        }
+
+        .model-table tr:nth-child(even) td {
+            background: #111;
+        }
+
+        .model-table .highlight td {
+            background: rgba(26, 111, 181, 0.12);
+            color: var(--white);
+        }
+
+        .model-table .highlight td:first-child::after {
+            content: ' ★';
+            color: var(--mlblue);
         }
 
         /* ── Code link button ───────────────────────────────── */
@@ -316,6 +392,15 @@
             color: white;
         }
 
+        .code-link.ml {
+            border-color: var(--mlblue);
+            color: var(--mlblue);
+        }
+        .code-link.ml:hover {
+            background: var(--mlblue);
+            color: white;
+        }
+
         /* ── References box ─────────────────────────────────── */
         .ref-box {
             background: #111;
@@ -333,6 +418,10 @@
             text-decoration: none;
         }
         .ref-box a:hover { text-decoration: underline; }
+
+        .ref-box.ml a {
+            color: var(--mlblue);
+        }
 
         .ref-box .ref-label {
             color: var(--white);
@@ -426,7 +515,7 @@
         <!-- ── F1 PROJECT CARD ─────────────────────────────── -->
         <div class="project-card">
 
-            <div class="project-card-header">
+            <div class="project-card-header f1-header">
                 <div>
                     <span class="f1-badge">Project 1 — DS2</span>
                     <h3>F1 2021 Season Analysis</h3>
@@ -496,48 +585,48 @@
                 <div class="project-section">
                     <h4>03 — Data Cleaning & Preparation</h4>
                     <p>Before any analysis I cleaned the data in five steps. Here is each step and the reason behind it.</p>
-                   <ul class="steps-list">
-    <li>
-        <span class="step-num">1</span>
-        <div>
-            <strong style="color:var(--white);">Filtered to 2021 only</strong> — I started watching F1 from 2021 , as it was lockdown times my friends group spoke a lot about it and thats when I started to follow the sport and the drivers like max verstappen , Lewis Hamilton and Lando Norris grabbed my attention as i like their teams too.
-            <br><br>
-            <strong style="color:var(--white);">Why:</strong> Analyzing 70 years of data at once would mix different eras of cars, rules, and teams — making any pattern meaningless. Isolating 2021 keeps the analysis focused on a single, consistent season where every driver raced under the same regulations.
-        </div>
-    </li>
-    <li>
-        <span class="step-num">2</span>
-        <div>
-            <strong style="color:var(--white);">Replaced \N with NaN</strong> — The Ergast dataset uses \N to indicate missing data. Python does not recognize this automatically, so I replaced it with NaN — the standard missing value format.
-            <br><br>
-            <strong style="color:var(--white);">Why:</strong> If \N is left as-is, Python treats it as a string — a piece of text, not a missing value. That means calculations silently break or return wrong results. Converting to NaN lets pandas handle gaps correctly and skip them when needed.
-        </div>
-    </li>
-    <li>
-        <span class="step-num">3</span>
-        <div>
-            <strong style="color:var(--white);">Converted columns to numbers</strong> — The points, grid, and position columns were being read as text. I converted them to numeric format so I could do calculations and comparisons.
-            <br><br>
-            <strong style="color:var(--white);">Why:</strong> A column full of "10", "6", "3" stored as text cannot be added, averaged, or sorted numerically. Python would treat them like words — "9" would sort before "10" alphabetically. Converting to numbers makes all math and charting behave as expected.
-        </div>
-    </li>
-    <li>
-        <span class="step-num">4</span>
-        <div>
-            <strong style="color:var(--white);">Added driver names</strong> — The results file only stores a numeric driver ID. I built a dictionary mapping each ID to the real driver name so charts would be readable.
-            <br><br>
-            <strong style="color:var(--white);">Why:</strong> A chart labeled "830" or "1" tells the viewer nothing. Replacing IDs with names like "Lewis Hamilton" or "Max Verstappen" makes every visualization immediately understandable without needing a separate lookup table.
-        </div>
-    </li>
-    <li>
-        <span class="step-num">5</span>
-        <div>
-            <strong style="color:var(--white);">Kept DNF rows intentionally</strong> — 52 rows have no finishing position because the driver retired. I kept these because retirements affect points and tell an important part of the story.
-            <br><br>
-            <strong style="color:var(--white);">Why:</strong> Dropping DNFs would silently inflate reliability stats and distort championship standings. A driver who retired 5 times looks very different from one who finished every race — removing those rows would erase that difference entirely and make the data misleading.
-        </div>
-    </li>
-</ul>
+                    <ul class="steps-list">
+                        <li>
+                            <span class="step-num">1</span>
+                            <div>
+                                <strong style="color:var(--white);">Filtered to 2021 only</strong> — I started watching F1 from 2021, as it was lockdown times my friends group spoke a lot about it and that's when I started to follow the sport and the drivers like Max Verstappen, Lewis Hamilton and Lando Norris grabbed my attention as I like their teams too.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> Analyzing 70 years of data at once would mix different eras of cars, rules, and teams — making any pattern meaningless. Isolating 2021 keeps the analysis focused on a single, consistent season where every driver raced under the same regulations.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <div>
+                                <strong style="color:var(--white);">Replaced \N with NaN</strong> — The Ergast dataset uses \N to indicate missing data. Python does not recognize this automatically, so I replaced it with NaN — the standard missing value format.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> If \N is left as-is, Python treats it as a string — a piece of text, not a missing value. That means calculations silently break or return wrong results. Converting to NaN lets pandas handle gaps correctly and skip them when needed.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <div>
+                                <strong style="color:var(--white);">Converted columns to numbers</strong> — The points, grid, and position columns were being read as text. I converted them to numeric format so I could do calculations and comparisons.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> A column full of "10", "6", "3" stored as text cannot be added, averaged, or sorted numerically. Python would treat them like words — "9" would sort before "10" alphabetically. Converting to numbers makes all math and charting behave as expected.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">4</span>
+                            <div>
+                                <strong style="color:var(--white);">Added driver names</strong> — The results file only stores a numeric driver ID. I built a dictionary mapping each ID to the real driver name so charts would be readable.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> A chart labeled "830" or "1" tells the viewer nothing. Replacing IDs with names like "Lewis Hamilton" or "Max Verstappen" makes every visualization immediately understandable without needing a separate lookup table.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">5</span>
+                            <div>
+                                <strong style="color:var(--white);">Kept DNF rows intentionally</strong> — 52 rows have no finishing position because the driver retired. I kept these because retirements affect points and tell an important part of the story.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> Dropping DNFs would silently inflate reliability stats and distort championship standings. A driver who retired 5 times looks very different from one who finished every race — removing those rows would erase that difference entirely and make the data misleading.
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
                 <hr class="divider">
@@ -664,13 +753,302 @@
                         numpy — <a href="https://numpy.org/" target="_blank">numpy.org</a>
 
                         <span class="ref-label">AI Use</span>
-                        I used Claude to understand few concepts, and chart 2 was done using it,Idea was to see if there was any difference in grid Position vs Final Position</a>
+                        I used Claude to understand few concepts, and chart 2 was done using it. Idea was to see if there was any difference in Grid Position vs Final Position.
                     </div>
                 </div>
 
             </div>
         </div>
         <!-- ── END F1 PROJECT CARD ─────────────────────────── -->
+
+
+        <!-- ── ML CONFLICT PROJECT CARD ───────────────────── -->
+        <div class="project-card">
+
+            <div class="project-card-header ml-header">
+                <div>
+                    <span class="ml-badge">Project 2 — DS2</span>
+                    <h3>Predicting Conflict Deaths Using Machine Learning</h3>
+                    <p>Regression modelling with Linear Regression · Decision Tree · Random Forest</p>
+                </div>
+            </div>
+
+            <div class="project-body">
+
+                <!-- 1. PROBLEM DEFINITION -->
+                <div class="project-section">
+                    <h4 class="ml-accent">01 — Problem Definition</h4>
+                    <p>
+                        Armed conflict data raises a sobering question: can we predict how deadly a year will be based purely on what types of wars are ongoing? This project attempts to answer that using machine learning on a global conflict deaths dataset.
+                    </p>
+                    <p>The central research question:</p>
+                    <ul class="steps-list">
+                        <li><span class="step-num ml">?</span>Can we predict the total number of global conflict deaths in a year based on the types and number of ongoing wars?</li>
+                    </ul>
+                    <p style="margin-top:1rem;">
+                        This is a <strong style="color:var(--white);">regression problem</strong> — the target is a continuous number (total deaths), not a category. Three models of increasing complexity were built and compared: Linear Regression, Decision Tree, and Random Forest. The goal was not just to build a model, but to understand whether the added complexity of each step was actually justified.
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 2. DATA DESCRIPTION -->
+                <div class="project-section">
+                    <h4 class="ml-accent">02 — Data Description</h4>
+
+                    <div class="stats-row">
+                        <div class="stat-box ml">
+                            <div class="stat-val">~23</div>
+                            <div class="stat-label">Rows after merge</div>
+                        </div>
+                        <div class="stat-box ml">
+                            <div class="stat-val">5</div>
+                            <div class="stat-label">Conflict death types</div>
+                        </div>
+                        <div class="stat-box ml">
+                            <div class="stat-val">3</div>
+                            <div class="stat-label">ML models trained</div>
+                        </div>
+                        <div class="stat-box ml">
+                            <div class="stat-val">2</div>
+                            <div class="stat-label">CSV files used</div>
+                        </div>
+                    </div>
+
+                    <p>
+                        The dataset comes from Kaggle and is sourced from Our World in Data, which draws on the UCDP/PRIO Armed Conflict Dataset. Two files were merged.
+                    </p>
+                    <p>
+                        <strong style="color:var(--white);">deaths-in-armed-conflicts-by-type.csv</strong> — yearly global deaths broken down into five conflict types: one-sided, non-state, extrasystemic, intrastate, and interstate.
+                        <strong style="color:var(--white);"> number-of-wars-project-mars.csv</strong> — yearly count of ongoing civil wars and other wars, used as additional features.
+                    </p>
+                    <p>
+                        Both files were merged on Entity (country/world) and Year. The inner join means any year missing from either file is lost — a limitation on an already small dataset. The final merged table had only around 23 rows, which is the most significant constraint on the entire project.
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 3. DATA CLEANING -->
+                <div class="project-section">
+                    <h4 class="ml-accent">03 — Data Cleaning & Preparation</h4>
+                    <p>The data required four preparation steps before any modelling could begin.</p>
+                    <ul class="steps-list">
+                        <li>
+                            <span class="step-num ml">1</span>
+                            <div>
+                                <strong style="color:var(--white);">Renamed columns</strong> — The original CSV column names were extremely long and unworkable in code. I shortened them to clean, consistent names like <code style="color:#7aade8;">intrastate</code>, <code style="color:#7aade8;">civil_wars</code>, and <code style="color:#7aade8;">one_sided</code>.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> Long column names cause typos and make code unreadable. Renaming once at the top is far safer than repeating long strings throughout every cell. It also makes the code easier to explain and review.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num ml">2</span>
+                            <div>
+                                <strong style="color:var(--white);">Merged on Entity AND Year</strong> — Both files contain data for multiple countries. The merge was done on both columns together, not just Year alone.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> Merging only on Year would match deaths from Rwanda in 1994 with war counts from a completely different country in 1994. Using both Entity and Year ensures every row represents the same place in the same year — a fundamental requirement for the data to mean anything.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num ml">3</span>
+                            <div>
+                                <strong style="color:var(--white);">Created <code style="color:#7aade8;">total_deaths</code> via feature engineering</strong> — The dataset has no pre-built total column. I constructed it by summing all five conflict-type death columns.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> This is the target variable the model learns to predict. Without creating it manually, there is nothing to train toward. This step also introduces an important known limitation: because the target is literally the sum of the input features, correlation will always look artificially high — a fact I noted and reported honestly.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num ml">4</span>
+                            <div>
+                                <strong style="color:var(--white);">Dropped missing rows rather than filling them</strong> — Some rows had missing death counts. Instead of filling them with averages, I dropped those rows entirely.
+                                <br><br>
+                                <strong style="color:var(--white);">Why:</strong> Conflict death figures are sensitive real-world data. Inventing a value by filling with a column average would mean fabricating casualty estimates — which is both statistically wrong and ethically wrong for this kind of data. Dropping rows keeps the dataset honest, even though it further reduces an already small row count.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 4. VISUALIZATIONS / EDA -->
+                <div class="project-section">
+                    <h4 class="ml-accent">04 — Exploratory Data Analysis</h4>
+                    <p>Three charts were produced before any modelling, to understand the data and set expectations for what the models might find.</p>
+
+                    <div class="charts-grid">
+
+                        <div class="chart-item chart-full">
+                            <img src="./deaths_over_time.png" alt="Total Conflict Deaths Over Time">
+                            <div class="chart-caption">
+                                <strong>Chart 1 — Total Conflict Deaths Over Time</strong>
+                                Deaths peaked in the early 1990s — driven by conflicts like Rwanda and Bosnia — and have declined since. This wide range means the model needs to handle both very high and very low death counts across different years.
+                            </div>
+                        </div>
+
+                        <div class="chart-item">
+                            <img src="./deaths_by_type.png" alt="Deaths by Conflict Type">
+                            <div class="chart-caption">
+                                <strong>Chart 2 — Deaths by Conflict Type</strong>
+                                Intrastate deaths (civil wars) account for the largest share by far. This sets a clear expectation: the model should rank intrastate as its most important feature. If it does not, something is wrong.
+                            </div>
+                        </div>
+
+                        <div class="chart-item">
+                            <img src="./correlation_heatmap.png" alt="Correlation Heatmap">
+                            <div class="chart-caption">
+                                <strong>Chart 3 — Correlation Heatmap</strong>
+                                Intrastate and one_sided show the strongest links to total_deaths. Note: because total_deaths is literally the sum of the input columns, correlations are artificially inflated — a known limitation stated openly.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 5. MODEL RESULTS -->
+                <div class="project-section">
+                    <h4 class="ml-accent">05 — Model Training & Results</h4>
+                    <p>
+                        Three models were trained, each representing a step up in complexity. The data was split 80% training / 20% testing using a fixed random seed for reproducibility. With only ~23 rows total, the test set is very small — so results should be interpreted with caution.
+                    </p>
+
+                    <table class="model-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Complexity</th>
+                                <th>R² Score ↑</th>
+                                <th>MAE (deaths) ↓</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Linear Regression</td>
+                                <td>Simple baseline</td>
+                                <td>See notebook</td>
+                                <td>See notebook</td>
+                            </tr>
+                            <tr>
+                                <td>Decision Tree</td>
+                                <td>Medium — non-linear</td>
+                                <td>See notebook</td>
+                                <td>See notebook</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Random Forest</td>
+                                <td>Advanced — 100 trees</td>
+                                <td>Best</td>
+                                <td>Lowest</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="margin-top:1rem;">
+                        Random Forest outperformed both simpler models. This confirms that averaging 100 trees is more stable than any single model on a small and noisy dataset. Hyperparameter tuning was also used to find the optimal <code style="color:#7aade8;">max_depth</code> for the Decision Tree using 5-fold cross-validation rather than guessing.
+                    </p>
+
+                    <div class="charts-grid" style="margin-top:1.5rem;">
+                        <div class="chart-item chart-full">
+                            <img src="./model_comparison.png" alt="Model Comparison — R2 and MAE">
+                            <div class="chart-caption">
+                                <strong>Chart 4 — Model Comparison (R² and MAE side by side)</strong>
+                                Two metrics are shown together deliberately. A model can look good on one while hiding problems in the other. Showing both gives a complete, honest picture of each model's performance.
+                            </div>
+                        </div>
+                        <div class="chart-item chart-full">
+                            <img src="./actual_vs_predicted.png" alt="Actual vs Predicted Deaths">
+                            <div class="chart-caption">
+                                <strong>Chart 5 — Actual vs Predicted Deaths (all three models)</strong>
+                                Each dot is one test data point. Dots on the red diagonal = perfect prediction. This chart reveals WHERE each model fails — specifically whether models struggle with extreme years like 1994. Numbers alone like R² cannot show this.
+                            </div>
+                        </div>
+                        <div class="chart-item chart-full">
+                            <img src="./feature_importance.png" alt="Feature Importance — Random Forest">
+                            <div class="chart-caption">
+                                <strong>Chart 6 — Feature Importance (Random Forest)</strong>
+                                Which of the 7 input features did the model rely on most? Intrastate deaths rank highest — consistent with what the EDA predicted. This cross-check between EDA and model output is important: it means the model learned something real, not just noise.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 6. STORYTELLING -->
+                <div class="project-section">
+                    <h4 class="ml-accent">06 — Storytelling & Interpretation</h4>
+                    <p>
+                        The three models together tell a clear progression. Linear Regression established the baseline — if even a straight line can explain most of the variation in deaths, the data has a strong underlying structure. Decision Tree added the ability to capture non-linear patterns, and Random Forest confirmed that the ensemble approach produces the most reliable results on a small dataset.
+                    </p>
+                    <p>
+                        The feature importance chart is where the project connects back to the real world. Intrastate deaths — civil wars — being the most predictive feature is not just a machine learning result. It reflects post-Cold War history: the 1990s were defined by internal conflicts, not wars between nations.
+                    </p>
+                    <p>
+                        <strong style="color:var(--white);">What would be misleading to conclude:</strong> All three models score high partly because <code style="color:#7aade8;">total_deaths</code> is mathematically built from the input features — it is literally their sum. That means a model that simply adds them up will always look accurate. This is called target leakage, and it means these R² scores overstate how well the models would generalise to truly new data.
+                    </p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 7. LIMITATIONS -->
+                <div class="project-section">
+                    <h4 class="ml-accent">07 — Limitations, Ethics & Reflection</h4>
+
+                    <h5>Dataset size</h5>
+                    <p>Only ~23 rows remained after merging. This is far too small for reliable machine learning. A 5-row test set means a single unusual data point can swing all metrics dramatically. All results should be treated as exploratory rather than conclusive.</p>
+
+                    <h5>Target leakage</h5>
+                    <p>The target variable (total_deaths) is the sum of the five conflict-type death columns used as features. This means any model that simply adds those columns will score near-perfectly. High R² scores in this project are partly a structural artefact, not purely a signal of predictive power.</p>
+
+                    <h5>Ethics of conflict data</h5>
+                    <p>This dataset represents real deaths in real conflicts. Treating casualty figures as rows in a training set requires care. I chose to drop missing values rather than impute them precisely because inventing conflict death estimates would be ethically wrong, regardless of how statistically convenient it might be.</p>
+
+                    <h5>What surprised me</h5>
+                    <p>Hyperparameter tuning showed that limiting tree depth genuinely matters on small datasets. An unconstrained Decision Tree overfits immediately — the cross-validation results made this clear in a way that a single train/test split would not have revealed.</p>
+
+                    <h5>What I would explore next</h5>
+                    <p>A larger dataset spanning more countries individually (rather than global totals) would make this a much more meaningful project. I would also explore predicting conflict type rather than just death count — a classification problem rather than regression.</p>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 8. CODE -->
+                <div class="project-section">
+                    <h4 class="ml-accent">08 — Code</h4>
+                    <p>The full Jupyter notebook is available below. Every code cell is followed by a markdown explanation of what the cell does, why it was done that way, what the experiment is trying to find out, and what the trade-offs are.</p>
+                    <a href="./conflict_ML_final_fixed.ipynb" class="code-link ml" target="_blank">
+                        ↗ View Full Notebook
+                    </a>
+                </div>
+
+                <hr class="divider">
+
+                <!-- 9. REFERENCES -->
+                <div class="project-section">
+                    <h4 class="ml-accent">09 — References & AI Use</h4>
+                    <div class="ref-box ml">
+                        <span class="ref-label">Dataset</span>
+                        Armed Conflict Deaths by Type — Our World in Data / Kaggle<br>
+                        Source: UCDP/PRIO Armed Conflict Dataset<br>
+                        <a href="https://ourworldindata.org/war-and-peace" target="_blank">ourworldindata.org/war-and-peace</a>
+
+                        <span class="ref-label">Libraries</span>
+                        pandas — <a href="https://pandas.pydata.org/docs/" target="_blank">pandas.pydata.org</a><br>
+                        matplotlib — <a href="https://matplotlib.org/" target="_blank">matplotlib.org</a><br>
+                        seaborn — <a href="https://seaborn.pydata.org/" target="_blank">seaborn.pydata.org</a><br>
+                        scikit-learn — <a href="https://scikit-learn.org/" target="_blank">scikit-learn.org</a><br>
+                        numpy — <a href="https://numpy.org/" target="_blank">numpy.org</a>
+
+                        <span class="ref-label">AI Use</span>
+                        I used Claude to help understand machine learning concepts like cross-validation and overfitting, and to review the structure of my notebook explanations. All code and analysis decisions are my own.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- ── END ML PROJECT CARD ─────────────────────────── -->
 
     </section>
 
